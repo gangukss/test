@@ -1,11 +1,21 @@
 version: '3'
 
-volumes:
-    data: {}
-
 networks:
-    intra:
-        driver: bridge
+    networks:
+
+volumes:
+    website: 
+        driver_opts: 
+            type: 'none'
+            o: "bind"
+            device: "/home/kankim/data/wp"
+
+    database: 
+        driver_opts: 
+            type: 'none'
+            o: "bind"
+            device: "/home/kankim/data/db"
+
 
 services:
     nginx:
@@ -18,7 +28,9 @@ services:
         ports:
             - "443:443"
         volumes:
-            - data:/var/www/html
+            - type: volume
+            - source: website
+            - target: /var/www
         networks:
             - intra
         tty: true
@@ -33,9 +45,9 @@ services:
         container_name: wordpress
         restart: always
         volumes:
-            - data:/var/www/html
-        expose: 
-            - "9000"
+            - type: volume
+            - source: website
+            - target: /var/www
         networks:
             - intra
         tty: true
@@ -47,8 +59,10 @@ services:
         image: mariadb:kankim
         container_name: mariadb
         restart: always
-        expose:
-            - "3306"
+        volumes:
+            - type: volume
+            - source: database
+            - target: /var/lib/mysql
         networks:
             - intra
         tty: true
