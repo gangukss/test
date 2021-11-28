@@ -6,7 +6,7 @@
 #    By: kankim <kankim@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/11/23 14:25:20 by kankim            #+#    #+#              #
-#    Updated: 2021/11/25 20:39:26 by kankim           ###   ########.fr        #
+#    Updated: 2021/11/28 20:50:51 by kankim           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,8 +15,8 @@ NAME = Inception
 all: $(NAME)
 
 $(NAME):
-	mkdir -p /home/kankim/data/wp
-	mkdir -p /home/kankim/data/db
+	mkdir -p /home/kankim/data/database
+	mkdir -p /home/kankin/data/wordpress
 	docker-compose --project-directory srcs -f srcs/docker-compose.yml up --build -d
 
 clean:
