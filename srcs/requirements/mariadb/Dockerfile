@@ -7,9 +7,9 @@ RUN apt-get install -y mariadb-server vim
 #COPY ./createdb.sql .
 COPY ./entry.sh .
 
-RUN service mysql start && \
-	chmod 777 entry.sh && \
-	./entry.sh
+RUN service mysql start 
+RUN chmod 777 entry.sh
+RUN ./entry.sh
 
 CMD ["mysqld", "--user=mysql"]
 
