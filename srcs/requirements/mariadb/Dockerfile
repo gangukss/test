@@ -11,6 +11,6 @@ COPY ./entry.sh .
 #RUN chmod 777 entry.sh
 #RUN ./entry.sh
 
-CMD ["entry.sh"]
+CMD ["sh", "entry.sh"]
 
 EXPOSE 3306
