@@ -1,0 +1,46 @@
+version: '3'
+
+volumes:
+    data: {}
+
+networks:
+    intra:
+        driver: bridge
+
+services:
+    mariadb:
+        build: ./requirements/mariadb
+        image: mariadb:kankim
+        container_name: mariadb
+        restart: always
+        expose:
+            - "3306"
+        networks:
+            - intra
+        tty: true
+
+    nginx:
+        build: ./requirements/nginx
+        image: nginx:kankim
+        container_name: nginx
+        restart: always
+        ports:
+            - "443:443"
+        volumes:
+            - data:/var/www/html
+        networks:
+            - intra
+        tty: true
+
+    wordpress:
+        build: ./requirements/wordpress
+        image: wordpress:kankim
+        container_name: wordpress
+        restart: always
+        volumes:
+            - data:/var/www/html
+        expose: 
+            - "9000"
+        networks:
+            - intra
+        tty: true
