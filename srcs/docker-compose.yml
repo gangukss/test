@@ -22,6 +22,8 @@ services:
         networks:
             - intra
         tty: true
+        env_file: 
+            - .env
 
     wordpress:
         depends_on: 
@@ -37,6 +39,8 @@ services:
         networks:
             - intra
         tty: true
+        env_file: 
+            - .env
 
     mariadb:
         build: ./requirements/mariadb
@@ -48,3 +52,5 @@ services:
         networks:
             - intra
         tty: true
+        env_file: 
+            - .env
