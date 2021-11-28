@@ -8,11 +8,11 @@ service mysql start
 apt-get install -y gettext-base
 envsubst < /createdb.sql | mysql
 mysqladmin -u root password $DB_ROOT_PASSWORD
-service mysql stop
+#service mysql stop
 fi
 chown -R mysql:mysql /var/lib/mysql
 
-mysqld_safe
+#mysqld_safe
 
 #mysql -u root -p"$ROOT_PASS"<<-EOSQL
 #	CREATE DATABASE $DB_NAME;
