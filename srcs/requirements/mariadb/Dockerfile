@@ -7,8 +7,13 @@ RUN apt-get install -y mariadb-server vim
 COPY ./createdb.sql .
 
 RUN service mysql start &&\
-	mysql < createdb.sql &&\
-	rm -f createdb.sql
+	mysql -u root -p"$ROOT_PASS"<<-EOSQL \
+		CREATE DATABASE $DB_NAME; \
+		CREATE USER "$DB_USER"@"%" IDENTIFIED BY "$DB_PASS"; \
+		GRANT ALL PRIVILEGES ON $DB_NAME.* TO "$DB_USER"@"%"; \
+		FLUSH PRIVILEGES; \
+		SET PASSWORD FOR 'root'@'localhost' = PASSWORD("$ROOT_PASS"); \
+	EOSQL
 
 CMD ["mysqld", "--user=mysql"]
 
