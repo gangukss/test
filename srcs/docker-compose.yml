@@ -25,7 +25,7 @@ services:
 
     wordpress:
         depends_on: 
-            - nginx
+            - mariadb
         build: ./requirements/wordpress
         image: wordpress:kankim
         container_name: wordpress
