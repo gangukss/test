@@ -8,18 +8,9 @@ networks:
         driver: bridge
 
 services:
-    mariadb:
-        build: ./requirements/mariadb
-        image: mariadb:kankim
-        container_name: mariadb
-        restart: always
-        expose:
-            - "3306"
-        networks:
-            - intra
-        tty: true
-
     nginx:
+        depends_on: 
+            - wordpress
         build: ./requirements/nginx
         image: nginx:kankim
         container_name: nginx
@@ -33,6 +24,8 @@ services:
         tty: true
 
     wordpress:
+        depends_on: 
+            - nginx
         build: ./requirements/wordpress
         image: wordpress:kankim
         container_name: wordpress
@@ -41,6 +34,17 @@ services:
             - data:/var/www/html
         expose: 
             - "9000"
+        networks:
+            - intra
+        tty: true
+
+    mariadb:
+        build: ./requirements/mariadb
+        image: mariadb:kankim
+        container_name: mariadb
+        restart: always
+        expose:
+            - "3306"
         networks:
             - intra
         tty: true
