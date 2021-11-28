@@ -4,16 +4,10 @@ RUN apt-get update -y
 RUN apt-get install -y mariadb-server vim 
 
 #COPY ./50-server.cnf /etc/my.cnf.d/mariadb-server.cnf
-COPY ./createdb.sql .
+#COPY ./createdb.sql .
+COPY ./entry.sh .
 
-RUN service mysql start &&\
-	mysql -u root -p"$ROOT_PASS"<<-EOSQL \
-		CREATE DATABASE $DB_NAME; \
-		CREATE USER "$DB_USER"@"%" IDENTIFIED BY "$DB_PASS"; \
-		GRANT ALL PRIVILEGES ON $DB_NAME.* TO "$DB_USER"@"%"; \
-		FLUSH PRIVILEGES; \
-		SET PASSWORD FOR 'root'@'localhost' = PASSWORD("$ROOT_PASS"); \
-	EOSQL
+RUN service mysql start && ./entry.sh
 
 CMD ["mysqld", "--user=mysql"]
 
