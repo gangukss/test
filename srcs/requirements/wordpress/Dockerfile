@@ -13,9 +13,9 @@ COPY ./wp-config.php /var/www/wordpress/
 COPY ./www.conf /etc/php/7.3/fpm/pool.d
 RUN mkdir -p /run/php
 
-RUN service php7.3-fpm start
+#RUN service php7.3-fpm start
 
-ENTRYPOINT ["bash", "entrypoint.sh"]
-#CMD ["php-fpm7.3", "-F"]
+#ENTRYPOINT ["bash", "entrypoint.sh"]
+CMD ["php-fpm7.3", "-F"]
 
 EXPOSE 9000

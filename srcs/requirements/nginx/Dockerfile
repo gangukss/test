@@ -9,8 +9,6 @@ RUN openssl req -new -newkey rsa:2048 -days 365 -nodes -x509 \
 
 COPY ./default /etc/nginx/sites-enabled/default
 
-RUN service nginx start
-
 CMD ["nginx", "-g", "daemon off;"]
 
 EXPOSE 443
