@@ -3,14 +3,9 @@ FROM debian:buster
 RUN apt-get update -y
 RUN apt-get install -y mariadb-server vim 
 
-#COPY ./50-server.cnf /etc/my.cnf.d/mariadb-server.cnf
-#COPY ./createdb.sql .
-COPY ./entry.sh .
+COPY ./createdb.sh /
+COPY ./start_mysql.sh /
 
-#RUN service mysql start 
-#RUN chmod 777 entry.sh
-#RUN ./entry.sh
-
-CMD ["sh", "entry.sh"]
+CMD ["sh", "start_mysql.sh"]
 
 EXPOSE 3306

@@ -4,16 +4,20 @@ networks:
     networks:
 
 volumes:
-    website: 
-        driver_opts: 
+    database:
+        name: database
+        driver: local
+        driver_opts:
             type: none
             o: bind
-            device: /home/kankim/data/wp
-    database: 
-        driver_opts: 
+            device: /home/kankim/data/database
+    wordpress:
+        name: wordpress
+        driver: local
+        driver_opts:
             type: none
             o: bind
-            device: /home/kankim/data/db
+            device: /home/kankin/data/wordpress
 
 services:
     nginx:
@@ -26,15 +30,12 @@ services:
         ports:
             - "443:443"
         volumes:
-            - type: volume
-              source: website
-              target: /var/www/
+            - wordpress:/var/www/wordpress
         networks:
             - networks
         tty: true
         env_file: 
             - .env
-
     wordpress:
         depends_on: 
             - mariadb
@@ -43,24 +44,19 @@ services:
         container_name: wordpress
         restart: always
         volumes:
-            - type: volume
-              source: website
-              target: /var/www
+            - wordpress:/var/www/wordpress
         networks:
             - networks
         tty: true
         env_file: 
             - .env
-
     mariadb:
         build: ./requirements/mariadb
         image: mariadb:kankim
         container_name: mariadb
         restart: always
         volumes:
-            - type: volume
-              source: database
-              target: /var/lib/mysql
+            - database:/var/lib/mysql
         networks:
             - networks
         tty: true
