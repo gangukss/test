@@ -1,3 +1,6 @@
+service mysql start 
+chmod 777 entry.sh
+
 mysql -u root -p"$ROOT_PASS"<<-EOSQL
 	CREATE DATABASE $DB_NAME;
 	CREATE USER "$DB_USER"@"%" IDENTIFIED BY "$DB_PASS";
