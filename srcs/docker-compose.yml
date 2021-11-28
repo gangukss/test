@@ -30,7 +30,7 @@ services:
               source: website
               target: /var/www/
         networks:
-            - intra
+            - networks
         tty: true
         env_file: 
             - .env
@@ -47,7 +47,7 @@ services:
               source: website
               target: /var/www
         networks:
-            - intra
+            - networks
         tty: true
         env_file: 
             - .env
@@ -62,7 +62,7 @@ services:
               source: database
               target: /var/lib/mysql
         networks:
-            - intra
+            - networks
         tty: true
         env_file: 
             - .env
