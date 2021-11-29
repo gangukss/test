@@ -6,7 +6,7 @@
 #    By: kankim <kankim@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/11/23 14:25:20 by kankim            #+#    #+#              #
-#    Updated: 2021/11/28 20:50:51 by kankim           ###   ########.fr        #
+#    Updated: 2021/11/29 12:03:33 by kankim           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -28,8 +28,18 @@ fclean:
 	docker-compose --project-directory srcs -f srcs/docker-compose.yml down --rmi all -v
 	rm -rf /home/kankim/data
 
-setup:
+set:
+	sudo groupadd docker
+	sudo usermod -aG docker $USER
 	sudo chmod 777 /var/run/docker.sock
 	echo "127.0.0.1	kankim.42.fr" | sudo tee -a /etc/hosts
 
-.PHONY:	all clean fclean re
+reset:
+	docker stop $(docker ps -qa);
+	docker container rm -f $(docker container ls -qa);
+	docker rm $(docker ps -qa);
+	docker rmi -f $(docker images -qa);
+	docker volume rm $(docker volume ls -q);
+	docker network rm $(docker network ls -q) 2>/dev/null;
+
+.PHONY:	all clean fclean re set reset
