@@ -29,7 +29,17 @@
 			},
 			"request": {
 				"method": "GET",
-				"header": []
+				"header": [],
+				"url": {
+					"raw": "?a=a",
+					"query": [
+						{
+							"key": "a",
+							"value": "a",
+							"type": "text"
+						}
+					]
+				}
 			},
 			"response": []
 		}

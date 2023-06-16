@@ -15,5 +15,7 @@ files[] = {"id":"27974140-30c60446-804b-4953-b746-787b360d5758","path":"test2.js
 
 [config.relations.apiDefinition]
 rootDirectory = postman/schemas
+files[] = {"path":"index.yaml","metaData":{}}
 
 [config.relations.apiDefinition.metaData]
+type = openapi:3
